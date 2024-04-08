@@ -23,7 +23,7 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    lib.addIncludePath(.{ .path = "c" });
+    lib.addIncludePath(.{ .path = "lib" });
     lib.linkLibC();
 
     // This declares intent for the library to be installed into the standard
@@ -34,11 +34,12 @@ pub fn build(b: *std.Build) void {
     // Creates a step for unit testing. This only builds the test executable
     // but does not run it.
     const main_tests = b.addTest(.{
-        .root_source_file = .{ .path = "src/main.zig" },
+        .root_source_file = .{ .path = "test/test.zig" },
         .target = target,
         .optimize = optimize,
+        .test_runner = "test_runner.zig",
     });
-    main_tests.addIncludePath(.{ .path = "c" });
+    main_tests.addIncludePath(.{ .path = "lib" });
 
     const run_main_tests = b.addRunArtifact(main_tests);
 
