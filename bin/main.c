@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "math.h"
+#include "../include/math.h"
 
 int main() {
     printf("Hello, World!\n");

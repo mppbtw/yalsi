@@ -69,6 +69,7 @@ pub fn build(b: *std.Build) void {
     tests.addCSourceFiles(&[_][]const u8{"lib/math.c"}, &[_][]const u8{"-Werror"});
 
     const run_tests = b.addRunArtifact(tests);
+    run_tests.has_side_effects = true;
 
     // This creates a build step. It will be visible in the `zig build --help` menu,
     // and can be selected like this: `zig build test`
