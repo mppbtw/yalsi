@@ -1,5 +1,5 @@
 const math = @cImport({
-    @cInclude("math.c");
+    @cInclude("math.h");
 });
 const std = @import("std");
 const testing = std.testing;
