@@ -19,13 +19,14 @@ pub fn build(b: *std.Build) void {
         .name = "yalsi",
         // In this case the main source file is merely a path, however, in more
         // complicated build scripts, this could be a generated file.
-        .root_source_file = .{ .path = "src/main.c" },
+        .root_source_file = .{ .path = "bin/main.c" },
         .target = target,
         .optimize = optimize,
     });
 
     exe.linkLibC();
-    exe.addCSourceFiles(&[_][]const u8{"src/math.c"}, &[_][]const u8{"-Werror"});
+    exe.addIncludePath(.{ .path = "include" });
+    exe.addCSourceFiles(&[_][]const u8{"lib/math.c"}, &[_][]const u8{"-Werror"});
 
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
@@ -65,7 +66,7 @@ pub fn build(b: *std.Build) void {
     });
     tests.linkLibC();
     tests.addIncludePath(.{ .path = "include" });
-    tests.addCSourceFiles(&[_][]const u8{"src/math.c"}, &[_][]const u8{"-Werror"});
+    tests.addCSourceFiles(&[_][]const u8{"lib/math.c"}, &[_][]const u8{"-Werror"});
 
     const run_tests = b.addRunArtifact(tests);
 
